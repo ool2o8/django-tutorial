@@ -1,15 +1,13 @@
 [Unit]
-Description=uWSGI service
-After=syslog.target
+Description=uWSGI Emperor service
 
 [Service]
-ExecStart=/home/ubuntu/myvenv/bin/uwsgi -i /srv/django-deploy-test/.config/uwsgi/mysite.ini
-
-Restart=always
+ExecStart=/usr/local/bin/uwsgi --emperor /etc/uwsgi/sites
+Restart=on-failure
 KillSignal=SIGQUIT
 Type=notify
-StandardError=syslog
 NotifyAccess=all
+StandardError=syslog
 
 [Install]
 WantedBy=multi-user.target
